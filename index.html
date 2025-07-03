@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindconnect - Empowering Men's Mental Health</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4567b7;
+            --accent: #ff8c00;
+            --highlight: #2ecc71;
+            --neutral: #f5f7fa;
+            --dark-bg: #1e2a44;
+            --dark-accent: #1a3c34;
+            --text-dark: #212121;
+            --text-light: #ffffff;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            --gradient: linear-gradient(45deg, var(--primary), #6b8dd6);
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #2c3e50 100%), url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cpath d="M0 50c25 25 50 25 75 0s25-50 0-75-50-25-75 0-25 50 0 75z" fill="rgba(255,255,255,0.05)" /%3E%3C/svg%3E');
+            background-size: cover, 150px;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            line-height: 1.7;
+        }
+        .dark-mode {
+            background: linear-gradient(135deg, #0f172a 0%, var(--dark-accent) 100%), url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cpath d="M0 50c25 25 50 25 75 0s25-50 0-75-50-25-75 0-25 50 0 75z" fill="rgba(255,255,255,0.05)" /%3E%3C/svg%3E');
+            background-size: cover, 150px;
+        }
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(30, 42, 68, 0.95);
+            backdrop-filter: blur(10px);
+            padding: clamp(15px, 3vw, 20px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+        }
+        .nav-logo span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.8rem, 3.5vw, 2rem);
+            font-weight: 700;
+            color: var(--highlight);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: clamp(15px, 3vw, 20px);
+        }
+        .nav-links a, .nav-links button {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            font-weight: 600;
+            padding: clamp(10px, 2vw, 12px) clamp(15px, 3vw, 20px);
+            border-radius: 8px;
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+        }
+        .nav-links a:hover, .nav-links button:hover, .nav-links a:focus, .nav-links button:focus {
+            background: var(--accent);
+            color: var(--text-light);
+            transform: translateY(-2px);
+        }
+        .nav-links button {
+            background: var(--gradient);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .dark-mode .nav-links button {
+            background: linear-gradient(45deg, #e07b00, #ff9f33);
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: clamp(30px, 5vw, 50px) clamp(15px, 3vw, 25px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(25px, 4vw, 40px);
+            flex: 1;
+        }
+        .hero {
+            text-align: center;
+            padding: clamp(60px, 10vw, 100px) clamp(20px, 4vw, 30px);
+            background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=900&h=400') center/cover no-repeat;
+            border-radius: 16px;
+            position: relative;
+            color: var(--text-light);
+            width: 100%;
+            animation: fadeIn 1.2s ease-out;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 42, 68, 0.75);
+            border-radius: 16px;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(3rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--highlight);
+            margin-bottom: 15px;
+        }
+        .dark-mode h1 {
+            color: var(--accent);
+        }
+        h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.2rem);
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+        .tagline {
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: #f0f0f0;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+        .hero-cta {
+            padding: clamp(12px, 2.5vw, 16px) clamp(25px, 5vw, 50px);
+            background: var(--gradient);
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            font-size: clamp(1.1rem, 2vw, 1.2rem);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .hero-cta:hover, .hero-cta:focus {
+            background: linear-gradient(45deg, #2c3e50, var(--primary));
+            transform: scale(1.05);
+        }
+        .dark-mode .hero-cta {
+            background: linear-gradient(45deg, #e07b00, #ff9f33);
+        }
+        .card {
+            background: var(--neutral);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: clamp(25px, 5vw, 35px);
+            width: 100%;
+            max-width: 900px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: cardSlideIn 0.8s ease-out forwards;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        }
+        .dark-mode .card {
+            background: #2c3e50;
+            color: #e0e0e0;
+        }
+        .card:nth-child(1) { animation-delay: 0.2s; }
+        .card:nth-child(2) { animation-delay: 0.4s; }
+        .card:nth-child(3) { animation-delay: 0.6s; }
+        .card:nth-child(4) { animation-delay: 0.8s; }
+        .card:nth-child(5) { animation-delay: 1s; }
+        .card:nth-child(6) { animation-delay: 1.2s; }
+        .form-card, .contact-card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+        }
+        .dark-mode .form-card, .dark-mode .contact-card {
+            background: #2c3e50;
+            border-color: #616161;
+        }
+        .form-image {
+            max-width: 250px;
+            height: auto;
+            border-radius: 12px;
+            animation: floatUpDown 3s ease-in-out infinite;
+        }
+        .form-content, .contact-content {
+            flex: 1;
+            min-width: 320px;
+            text-align: center;
+        }
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .form-image, .card, .footer {
+                animation: none;
+            }
+        }
+        .card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.8rem, 3.5vw, 2rem);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .dark-mode .card h3 {
+            color: var(--highlight);
+        }
+        .card p, .card ul {
+            font-size: clamp(1.1rem, 2.2vw, 1.2rem);
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .dark-mode .card p, .dark-mode .card ul {
+            color: #d0d0d0;
+        }
+        .card ul {
+            padding-left: 25px;
+        }
+        .form-group, .contact-group {
+            margin: 25px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        #userName {
+            padding: clamp(14px, 2.5vw, 16px);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid #d0d0d0;
+            border-radius: 8px;
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .dark-mode #userName {
+            background: #424242;
+            color: #e0e0e0;
+            border-color: #616161;
+        }
+        #userName:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(255, 140, 0, 0.4);
+        }
+        .start-button, .contact-button {
+            padding: clamp(14px, 2.5vw, 16px) clamp(25px, 5vw, 50px);
+            background: var(--gradient);
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: clamp(1.1rem, 2vw, 1.2rem);
+            font-weight: 600;
+            transition: background 0.3s, transform 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .start-button:hover, .contact-button:hover, .start-button:focus, .contact-button:focus {
+            background: linear-gradient(45deg, #2c3e50, var(--primary));
+            transform: scale(1.05);
+        }
+        .start-button i, .contact-button i {
+            transition: transform 0.3s;
+        }
+        .start-button:hover i, .contact-button:hover i, .start-button:focus i, .contact-button:focus i {
+            transform: scale(1.2);
+        }
+        .dark-mode .start-button, .dark-mode .contact-button {
+            background: linear-gradient(45deg, #e07b00, #ff9f33);
+        }
+        .start-button:focus, .contact-button:focus {
+            outline: 3px solid var(--highlight);
+            outline-offset: 3px;
+        }
+        .contact-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .error {
+            color: #d32f2f;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            margin-top: 8px;
+            display: none;
+        }
+        .footer {
+            background: rgba(30, 42, 68, 0.95);
+            backdrop-filter: blur(10px);
+            padding: clamp(30px, 5vw, 50px);
+            color: #e0e0e0;
+            text-align: center;
+            width: 100%;
+            animation: fadeIn 1s ease-out;
+        }
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            max-width: 1100px;
+            margin: 0 auto 20px;
+        }
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        .footer-column h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.2rem, 2vw, 1.3rem);
+            font-weight: 600;
+            color: var(--highlight);
+            margin-bottom: 15px;
+        }
+        .footer a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+        .footer a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-links a {
+            margin: 0 15px;
+            font-size: 1.8rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .social-links a:hover {
+            color: var(--accent);
+            transform: scale(1.2);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes cardSlideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 15px;
+                padding: clamp(15px, 3vw, 20px);
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            .hero {
+                padding: clamp(40px, 8vw, 60px) clamp(15px, 3vw, 20px);
+            }
+            h1 {
+                font-size: clamp(2.5rem, 5vw, 3rem);
+            }
+            h2 {
+                font-size: clamp(1.5rem, 3vw, 1.8rem);
+            }
+            .card {
+                padding: clamp(20px, 4vw, 25px);
+            }
+            .form-card, .contact-card {
+                flex-direction: column;
+            }
+            .form-image {
+                max-width: 100%;
+            }
+            .contact-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: clamp(15px, 3vw, 20px);
+            }
+            #userName {
+                max-width: 100%;
+            }
+            .nav-logo img {
+                height: 30px;
+            }
+            .nav-logo span {
+                font-size: clamp(1.5rem, 3vw, 1.8rem);
+            }
+        }
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1200px;
+            }
+            .card {
+                max-width: 1000px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav" role="navigation">
+        <a href="/" class="nav-logo">
+            <!-- <img src="images/logo.png" alt="Mindconnect logo"> -->
+            <span>Mindconnect</span>
+        </a>
+        <div class="nav-links">
+            <!-- <a href="#about">About</a>
+            <a href="#contact-therapist">Contact a Therapist</a> -->
+            <button id="themeToggle" aria-label="Toggle Theme"><i class="fas fa-moon"></i></button>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Mindconnect</h1>
+                <h2>Empowering Men's Mental Health</h2>
+                <p class="tagline">A safe, confidential space for men to share, heal, and thrive</p>
+                <a href="#contact-therapist" class="hero-cta"><i class="fas fa-handshake"></i> Connect with a Therapist</a>
+                <div class="contact-group">
+                    <p>For immediate support, contact the GBV Command Centre or the Suicide Crisis Line.</p>
+                    <div class="contact-buttons">
+                        <a href="tel:+27800428428" class="contact-button" aria-label="Call GBV Command Centre" onclick="trackContact('phone')"><i class="fas fa-phone"></i> Call 0800 428 428 - GBV</a>
+                        <a href="tel:+27800567567" class="contact-button" aria-label="Call Suicide Crisis Line" onclick="trackContact('phone')"><i class="fas fa-phone"></i> Call 0800 567 567 - SCL</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card" id="about">
+            <h3><i class="fas fa-shield-alt"></i> Our Vision</h3>
+            <p>Mindconnect envisions a world where men feel empowered to prioritize their mental health. Our user-friendly platform provides personalized support and fosters a strong, supportive community for men worldwide.</p>
+        </div>
+        <div class="card">
+            <h3><i class="fas fa-heart"></i> Our Mission</h3>
+            <p>We are committed to creating a non-judgmental environment where men can openly discuss their challenges, access resources, and build resilience through community and professional support.</p>
+        </div>
+        <div class="card">
+            <h3><i class="fas fa-bullseye"></i> Our Aim</h3>
+            <p>To positively transform men’s mental health by reducing stigma, providing accessible tools, and contributing to a society that values emotional well-being for all.</p>
+        </div>
+        <div class="card">
+            <h3><i class="fas fa-exclamation-circle"></i> Why It Matters</h3>
+            <p>Men often face gender-based violence and mental health challenges in silence due to societal pressures. According to the World Health Organization (2022):</p>
+            <ul>
+                <li>Globally, 1 in 10 men experience intimate partner violence.</li>
+                <li>Men are less likely to seek help, with only 30% accessing mental health services.</li>
+                <li>Suicide rates are higher among men, with 3.5 times more men than women dying by suicide in high-income countries.</li>
+            </ul>
+            <p>Mindconnect is here to change this narrative by offering a safe space and resources tailored to men’s needs.</p>
+        </div>
+        <div class="card form-card">
+            <img src="images/chatbot.jpeg" alt="Chatbot interaction illustration" class="form-image" loading="lazy">
+            <div class="form-content">
+                <h3><i class="fas fa-user"></i> Begin Your Journey</h3>
+                <p>Enter your name to connect with Mindconnect’s confidential chatbot and start your path to healing.</p>
+                <div class="form-group">
+                    <input type="text" id="userName" placeholder="Enter your name" aria-label="Your name" required>
+                    <p class="error" id="nameError">Please enter your name to continue.</p>
+                    <button class="start-button" id="startButton" aria-label="Start chat"><i class="fas fa-arrow-right"></i> Get Started</button>
+                </div>
+            </div>
+        </div>
+        <div class="card contact-card" id="contact-therapist">
+            <img src="images/therapy.png" alt="Therapist consultation illustration" class="form-image" loading="lazy">
+            <div class="contact-content">
+                <h3><i class="fas fa-handshake"></i> Contact a Therapist</h3>
+                <p>Reach out to a professional therapist confidentially. Choose your preferred method below to get started. Your privacy is our priority—see our <a href="/privacy">Privacy Policy</a>.</p>
+                <div class="contact-group">
+                    <div class="contact-buttons">
+                        <a href="mailto:support@mindconnect.org?subject=Therapist%20Consultation" class="contact-button" aria-label="Email a therapist" onclick="trackContact('email')"><i class="fas fa-envelope"></i> Email</a>
+                        <a href="tel:+27832776466" class="contact-button" aria-label="Call a therapist" onclick="trackContact('phone')"><i class="fas fa-phone"></i> Call 083 277 6466</a>
+                        <a href="https://wa.me/+27832776466?text=Hello,%20I’d%20like%20to%20connect%20with%20a%20therapist." class="contact-button" aria-label="Message a therapist on WhatsApp" onclick="trackContact('whatsapp')"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>Contact Us</h4>
+                <p><a href="mailto:support@mindconnect.org">support@mindconnect.org</a></p>
+                <p><a href="tel:+27832776466">+27 83 277 6466</a></p>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <p><a href="/privacy">Privacy Policy</a></p>
+                <p><a href="/terms">Terms of Service</a></p>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="https://x.com/MindconnectApp" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                    <a href="https://facebook.com/MindconnectApp" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://linkedin.com/company/MindconnectApp" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <p>© 2025 Mindconnect. All rights reserved.</p>
+    </footer>
+    <script>
+        // Scroll to top on page load
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+        });
+
+        // DOM elements
+        const userNameInput = document.getElementById('userName');
+        const nameError = document.getElementById('nameError');
+        const startButton = document.getElementById('startButton');
+        const themeToggle = document.getElementById('themeToggle');
+
+        // Start chat
+        function startChat() {
+            const userName = userNameInput.value.trim();
+            if (!userName) {
+                nameError.style.display = 'block';
+                userNameInput.setCustomValidity('Please enter your name.');
+                userNameInput.reportValidity();
+                return;
+            }
+            nameError.style.display = 'none';
+            userNameInput.setCustomValidity('');
+            window.location.href = `chatbot.html?name=${encodeURIComponent(userName)}`;
+        }
+
+        // Toggle theme
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            themeToggle.innerHTML = `<i class="fas ${isDark ? 'fa-sun' : 'fa-moon'}"></i>`;
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Track contact button clicks
+        function trackContact(method) {
+            console.log(`Contact method selected: ${method}`);
+        }
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav-links a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Event listeners
+        startButton.addEventListener('click', startChat);
+        userNameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') startChat();
+        });
+        userNameInput.addEventListener('input', () => {
+            nameError.style.display = 'none';
+            userNameInput.setCustomValidity('');
+        });
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        }
+
+        // Focus input on load
+        userNameInput.focus();
+    </script>
+</body>
+</html>

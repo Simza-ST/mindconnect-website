@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindconnect Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Montserrat:wght@600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4567b7;
+            --accent: #ff8c00;
+            --highlight: #2ecc71;
+            --neutral: #f5f7fa;
+            --dark-bg: #1e2a44;
+            --dark-accent: #1a3c34;
+            --text-dark: #212121;
+            --text-light: #ffffff;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            --gradient: linear-gradient(45deg, var(--primary), #6b8dd6);
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, #2c3e50 100%), url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cpath d="M0 50c25 25 50 25 75 0s25-50 0-75-50-25-75 0-25 50 0 75z" fill="rgba(255,255,255,0.05)" /%3E%3C/svg%3E');
+            background-size: cover, 150px;
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            line-height: 1.7;
+        }
+        .dark-mode {
+            background: linear-gradient(135deg, #0f172a 0%, var(--dark-accent) 100%), url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Cpath d="M0 50c25 25 50 25 75 0s25-50 0-75-50-25-75 0-25 50 0 75z" fill="rgba(255,255,255,0.05)" /%3E%3C/svg%3E');
+            background-size: cover, 150px;
+        }
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(30, 42, 68, 0.95);
+            backdrop-filter: blur(10px);
+            padding: clamp(15px, 3vw, 20px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+         .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-logo img {
+            height: 40px;
+            width: auto;
+        }
+        .nav-logo span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.8rem, 3.5vw, 2rem);
+            font-weight: 700;
+            color: var(--highlight);
+            text-decoration: none;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: clamp(15px, 3vw, 20px);
+        }
+        .nav-buttons button {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            font-weight: 600;
+            padding: clamp(10px, 2vw, 12px) clamp(15px, 3vw, 20px);
+            background: var(--gradient);
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s, color 0.3s, transform 0.2s;
+        }
+        .nav-buttons button:hover, .nav-buttons button:focus {
+            background: var(--accent);
+            color: var(--text-light);
+            transform: translateY(-2px);
+        }
+        .dark-mode .nav-buttons button {
+            background: linear-gradient(45deg, #e07b00, #ff9f33);
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: clamp(30px, 5vw, 50px) clamp(15px, 3vw, 25px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(25px, 4vw, 40px);
+            flex: 1;
+        }
+        .hero {
+            text-align: center;
+            padding: clamp(60px, 10vw, 100px) clamp(20px, 4vw, 30px);
+            background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?fit=crop&w=900&h=400') center/cover no-repeat;
+            border-radius: 16px;
+            position: relative;
+            color: var(--text-light);
+            width: 100%;
+            animation: fadeIn 1.2s ease-out;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 42, 68, 0.75);
+            border-radius: 16px;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(3rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--highlight);
+            margin-bottom: 15px;
+        }
+        .dark-mode h1 {
+            color: var(--accent);
+        }
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.2rem);
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+        .tagline {
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            color: #f0f0f0;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+        .hero-cta {
+            padding: clamp(12px, 2.5vw, 16px) clamp(25px, 5vw, 50px);
+            background: var(--gradient);
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.1rem, 2vw, 1.2rem);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .hero-cta:hover, .hero-cta:focus {
+            background: linear-gradient(45deg, #2c3e50, var(--primary));
+            transform: scale(1.05);
+        }
+        .dark-mode .hero-cta {
+            background: linear-gradient(45deg, #e07b00, #ff9f33);
+        }
+        .chat-container {
+            background: var(--neutral);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - clamp(100px, 20vh, 200px) - clamp(60px, 10vh, 100px));
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: cardSlideIn 0.8s ease-out forwards;
+        }
+        .chat-container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        }
+        .dark-mode .chat-container {
+            background: #2c3e50;
+            color: #e0e0e0;
+        }
+        .chat-header {
+            background: var(--gradient);
+            color: var(--text-light);
+            padding: clamp(15px, 3vw, 20px);
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .dark-mode .chat-header {
+            background: linear-gradient(45deg, #e07b00, #ff9f33);
+        }
+        .chat-header span {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .chat-body {
+            flex: 1;
+            padding: clamp(15px, 3vw, 20px);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--neutral);
+        }
+        .dark-mode .chat-body {
+            scrollbar-color: var(--dark-accent) #2c3e50;
+        }
+        .message {
+            max-width: 80%;
+            padding: clamp(10px, 2vw, 15px) clamp(15px, 3vw, 20px);
+            border-radius: 8px;
+            line-height: 1.7;
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            animation: messageSlideIn 0.4s ease-out;
+        }
+        .user-message {
+            background: var(--gradient);
+            color: var(--text-light);
+            align-self: flex-end;
+            margin-left: 20%;
+            animation: messageSlideInRight 0.4s ease-out;
+        }
+        .dark-mode .user-message {
+            background: linear-gradient(45deg, #e07b00, #ff9f33);
+        }
+        .bot-message {
+            background: #e8ecef;
+            color: var(--text-dark);
+            align-self: flex-start;
+            margin-right: 20%;
+        }
+        .dark-mode .bot-message {
+            background: #424242;
+            color: #e0e0e0;
+        }
+        .timestamp {
+            font-size: clamp(0.7rem, 1.5vw, 0.8rem);
+            color: #757575;
+            margin-top: 6px;
+            opacity: 0.7;
+        }
+        .dark-mode .timestamp {
+            color: #bdbdbd;
+        }
+        .typing-indicator {
+            display: none;
+            font-size: clamp(0.85rem, 1.8vw, 0.9rem);
+            color: #757575;
+            padding: 10px;
+            align-self: flex-start;
+            display: flex;
+            gap: 6px;
+        }
+        .typing-indicator span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: pulseDot 1.2s infinite;
+        }
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        .dark-mode .typing-indicator {
+            color: #bdbdbd;
+        }
+        .dark-mode .typing-indicator span {
+            background: var(--highlight);
+        }
+        .chat-footer {
+            padding: clamp(15px, 3vw, 20px);
+            background: var(--neutral);
+            border-top: 1px solid #e0e0e0;
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: clamp(10px, 2vw, 15px);
+            align-items: center;
+        }
+        .dark-mode .chat-footer {
+            background: #2c3e50;
+            border-top: 1px solid #424242;
+        }
+        #userInput {
+            grid-column: 1 / -1;
+            padding: clamp(14px, 2.5vw, 16px);
+            border: 1px solid #d0d0d0;
+            border-radius: 8px;
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            width: 100%;
+        }
+        .dark-mode #userInput {
+            background: #424242;
+            color: #e0e0e0;
+            border-color: #616161;
+        }
+        #userInput:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(255, 140, 0, 0.4);
+        }
+        #userInput.error {
+            border-color: #d32f2f;
+        }
+        .error-message {
+            grid-column: 1 / -1;
+            color: #d32f2f;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            display: none;
+        }
+        #sendButton, #clearButton {
+            padding: clamp(14px, 2.5vw, 16px) clamp(15px, 3vw, 20px);
+            background: var(--gradient);
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        #sendButton:hover, #clearButton:hover, #sendButton:focus, #clearButton:focus {
+            background: linear-gradient(45deg, #2c3e50, var(--primary));
+            transform: scale(1.05);
+        }
+        .dark-mode #sendButton, .dark-mode #clearButton {
+            background: linear-gradient(45deg, #e07b00, #ff9f33);
+        }
+        .crisis-dropdown {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        .crisis-button {
+            padding: clamp(12px, 2.5vw, 16px) clamp(25px, 5vw, 30px);
+            background: var(--gradient);
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.1rem, 2vw, 1.2rem);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .crisis-button:hover, .crisis-button:focus {
+            background: linear-gradient(45deg, #2c3e50, var(--primary));
+            transform: scale(1.05);
+        }
+        .dark-mode .crisis-button {
+            background: linear-gradient(45deg, #e07b00, #ff9f33);
+        }
+        .crisis-menu {
+            display: none;
+            position: absolute;
+            bottom: 50px;
+            right: 0;
+            background: var(--neutral);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 15px;
+            width: 200px;
+        }
+        .dark-mode .crisis-menu {
+            background: #2c3e50;
+        }
+        .crisis-menu.active {
+            display: block;
+        }
+        .crisis-menu a {
+            display: block;
+            padding: 10px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: clamp(0.95rem, 2vw, 1rem);
+            transition: background 0.3s, color 0.3s;
+        }
+        .dark-mode .crisis-menu a {
+            color: #e0e0e0;
+        }
+        .crisis-menu a:hover, .crisis-menu a:focus {
+            background: var(--highlight);
+            color: var(--text-light);
+        }
+         .footer {
+            background: rgba(30, 42, 68, 0.95);
+            backdrop-filter: blur(10px);
+            padding: clamp(30px, 5vw, 50px);
+            color: #e0e0e0;
+            text-align: center;
+            width: 100%;
+            animation: fadeIn 1s ease-out;
+        }
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            max-width: 1100px;
+            margin: 0 auto 20px;
+        }
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        .footer-column h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.2rem, 2vw, 1.3rem);
+            font-weight: 600;
+            color: var(--highlight);
+            margin-bottom: 15px;
+        }
+        .footer a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            display: block;
+        }
+        .footer a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-links a {
+            margin: 0 15px;
+            font-size: 1.8rem;
+            transition: color 0.3s, transform 0.3s;
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+        .social-links a:hover {
+            color: var(--accent);
+            transform: scale(1.2);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes cardSlideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes messageSlideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: none; }
+        }
+        @keyframes messageSlideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: none; }
+        }
+        @keyframes pulseDot {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero, .chat-container, .message, .footer {
+                animation: none;
+            }
+        }
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 15px;
+                padding: clamp(15px, 3vw, 20px);
+            }
+            .nav-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            .hero {
+                padding: clamp(40px, 8vw, 60px) clamp(15px, 3vw, 20px);
+            }
+            h1 {
+                font-size: clamp(2.5rem, 5vw, 3rem);
+            }
+            h2 {
+                font-size: clamp(1.5rem, 3vw, 1.8rem);
+            }
+            .chat-container {
+                border-radius: 0;
+                height: calc(100vh - 150px);
+            }
+            .chat-footer {
+                grid-template-columns: 1fr;
+            }
+            #userInput, #sendButton, #clearButton {
+                grid-column: 1 / -1;
+                width: 100%;
+            }
+            .crisis-dropdown {
+                bottom: 15px;
+                right: 15px;
+            }
+            .crisis-menu {
+                width: 180px;
+            }
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: clamp(15px, 3vw, 20px);
+            }
+            .nav-logo img {
+                height: 30px;
+            }
+            .nav-logo span {
+                font-size: clamp(1.5rem, 3vw, 1.8rem);
+            }
+            .chat-body {
+                padding: clamp(10px, 2vw, 15px);
+            }
+            .message {
+                max-width: 85%;
+            }
+        }
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1200px;
+            }
+            .chat-container {
+                max-width: 1000px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">Mindconnect</a>
+        <div class="nav-buttons">
+            <button id="backButton" aria-label="Back to Home"><i class="fas fa-home"></i></button>
+            <button id="themeToggle" aria-label="Toggle Theme"><i class="fas fa-moon"></i></button>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="hero">
+            <div class="hero-content">
+                <h1>Mindconnect Chatbot</h1>
+                <h2>Welcome, <span id="userNameDisplay">Guest</span></h2>
+                <p class="tagline">A confidential space for men to share and heal</p>
+                <a href="tel:+27800428428" class="hero-cta" onclick="trackContact('phone')"><i class="fas fa-phone"></i> Call for Support</a>
+            </div>
+        </div>
+        <div class="chat-container">
+            <div class="chat-header">
+                <span><i class="fas fa-comment"></i> Chat with Mindconnect</span>
+            </div>
+            <div class="chat-body" id="chatBody"></div>
+            <div class="chat-footer">
+                <input type="text" id="userInput" placeholder="Type your response..." aria-label="Chat input">
+                <button id="sendButton" aria-label="Send message"><i class="fas fa-paper-plane"></i> Send</button>
+                <button id="clearButton" aria-label="Clear chat"><i class="fas fa-trash"></i> Clear</button>
+            </div>
+        </div>
+    </div>
+    <div class="crisis-dropdown">
+        <button class="crisis-button" id="crisisButton" aria-label="Crisis support"><i class="fas fa-phone"></i> Crisis Support</button>
+        <div class="crisis-menu" id="crisisMenu">
+            <a href="tel:+27800428428" onclick="trackContact('gbv')">GBV: 0800 428 428</a>
+            <a href="sms:*120*7867#" onclick="trackContact('sms')">SMS: *120*7867#</a>
+            <a href="tel:+27800567567" onclick="trackContact('sadag')">SADAG: 0800 567 567</a>
+        </div>
+    </div>
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>Contact Us</h4>
+                <a href="mailto:support@mindconnect.org">support@mindconnect.org</a>
+                <a href="tel:+27832776466">+27 83 277 6466</a>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="https://www.sadag.org">SADAG Support</a>
+            </div>
+            <div class="footer-column">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a class="links" href="https://x.com/MindconnectApp" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                    <a class="links" href="https://facebook.com/MindconnectApp" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a class="links" href="https://linkedin.com/company/MindconnectApp" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <p>© 2025 Mindconnect. All rights reserved.</p>
+    </footer>
+    <script>
+        // Scroll to top on page load
+        window.addEventListener('load', () => {
+            window.scrollTo(0, 0);
+        });
+
+        // Initialize user name from query parameter
+        const userName = new URLSearchParams(window.location.search).get('name') || 'Guest';
+        document.getElementById('userNameDisplay').textContent = userName;
+
+        // Define chatbot questions
+        const questions = [
+            `Would you like to share how your experience has affected you, ${userName}?`,
+            `Could you describe the situation you’ve been facing, ${userName}?`,
+            `Can you tell me more about what’s been happening, ${userName}?`,
+            `Have you reached out for help or support from anyone, ${userName}?`,
+            `I understand this may be difficult, ${userName}. Would you like to discuss possible next steps?`,
+            `Could you describe the incident in more detail, if you feel comfortable, ${userName}?`,
+            `When did you first notice abusive behavior from your partner, ${userName}?`,
+            `Can you share how the abuse started and what happened, ${userName}?`,
+            `How have you been feeling emotionally since the incident, ${userName}?`,
+            `Are you experiencing nightmares or sleep disturbances, ${userName}?`,
+            `Do you feel scared of your partner, ${userName}?`,
+            `Do you feel safe or comfortable around your partner, ${userName}?`,
+            `How has the abuse impacted you emotionally, ${userName}?`,
+            `Has the abuse affected your relationships with family or friends, ${userName}?`,
+            `Have you noticed any changes in your behavior or daily life, ${userName}?`,
+            `Are you currently feeling unsafe or in immediate danger, ${userName}?`,
+            `Do you have a support system, such as friends or family, you can rely on, ${userName}?`,
+            `Have you reported the incident to any authorities or organizations, ${userName}?`,
+            `Is there anything preventing you from seeking help, ${userName}?`,
+            `I can assist you in finding a therapist or peer support group near your location, ${userName}. Mindconnect is here as a confidential resource whenever you need support.`
+        ];
+
+        // Define chatbot responses
+        const responses = {
+            "hi": `Hello, ${userName}. Welcome to Mindconnect, a safe and confidential space for men. Would you like to share what you’re going through?`,
+            "hello": `Hello, ${userName}. Mindconnect is here to listen with care and respect. Can you tell me about what’s been happening?`,
+            "help": `Mindconnect is here to support you, ${userName}. Would you like to discuss your experiences or explore resources for help?`,
+            "bye": `Thank you for connecting with Mindconnect, ${userName}. We’re here whenever you need to talk. Take care.`,
+            "coping tips": `Here are some coping strategies for stress and anxiety, ${userName}:\n1. **Deep Breathing**: Inhale for 4 seconds, hold for 4, exhale for 4. Repeat 5 times.\n2. **Journaling**: Write down your thoughts to process emotions.\n3. **Physical Activity**: A short walk can reduce stress.\n4. **Self-Affirmations**: Remind yourself, 'I am worthy and capable.'\nWould you like tips for self-confidence or to continue discussing your experience?`,
+            "crisis support": `If you’re in immediate danger, please contact emergency services, ${userName}. In South Africa, call the GBV Command Centre at 0800 428 428 or SMS *120*7867#. In the US, call 911 or the National Domestic Violence Hotline at 1-800-799-7233. Mindconnect can also help connect you to local therapists or support groups. Would you like assistance finding these resources?`,
+            "support groups": `Mindconnect can connect you to peer support groups where men share similar experiences, ${userName}. Would you like me to provide information on groups near your location?`
+        };
+
+        // DOM elements
+        const chatBody = document.getElementById('chatBody');
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+        const clearButton = document.getElementById('clearButton');
+        const themeToggle = document.getElementById('themeToggle');
+        const backButton = document.getElementById('backButton');
+        let questionIndex = 0;
+
+        // Format timestamp
+        function formatTimestamp() {
+            return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Add message to chat
+        function addMessage(text, isUser) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+            messageDiv.textContent = text;
+            const timestampDiv = document.createElement('div');
+            timestampDiv.className = 'timestamp';
+            timestampDiv.textContent = formatTimestamp();
+            messageDiv.appendChild(timestampDiv);
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            saveChatHistory();
+        }
+
+        // Show typing indicator
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.innerHTML = '<span></span><span></span><span></span>';
+            typingDiv.style.display = 'flex';
+            chatBody.appendChild(typingDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            return typingDiv;
+        }
+
+        // Get bot response
+        function getBotResponse(userText) {
+            userText = userText.toLowerCase().trim();
+            if (responses[userText]) {
+                return responses[userText];
+            }
+            if (userText.includes('danger') || userText.includes('unsafe')) {
+                return responses['crisis support'];
+            }
+            if (userText.includes('support group') || userText.includes('peer')) {
+                return responses['support groups'];
+            }
+            if (questionIndex < questions.length - 1) {
+                questionIndex++;
+                return questions[questionIndex];
+            }
+            return `Thank you for sharing with Mindconnect, ${userName}. We can connect you to a therapist or peer support group near your location. You are not alone, and we’re here as a confidential resource whenever you need us.`;
+        }
+
+        // Handle send message
+        function handleSend() {
+            const userText = userInput.value.trim();
+            if (!userText) {
+                userInput.setCustomValidity('Please enter a message.');
+                userInput.reportValidity();
+                return;
+            }
+            userInput.setCustomValidity('');
+            addMessage(userText, true);
+            userInput.value = '';
+            const typingDiv = showTypingIndicator();
+            setTimeout(() => {
+                typingDiv.remove();
+                const response = getBotResponse(userText);
+                addMessage(response, false);
+            }, 1000);
+        }
+
+        // Clear chat with confirmation
+        function clearChat() {
+            if (confirm('Are you sure you want to clear the chat history? This action cannot be undone.')) {
+                localStorage.removeItem('chatHistory');
+                localStorage.removeItem('questionIndex');
+                questionIndex = 0;
+                chatBody.innerHTML = `<div class="message bot-message">Welcome, ${userName}, to Mindconnect, a safe space for men to share and heal. You are not alone—statistics show that 1 in 7 men experience gender-based violence, and many face challenges in silence. For immediate support in South Africa, call 0800 428 428 or SMS *120*7867#. Would you like to share how your experience has affected you?<div class="timestamp">${formatTimestamp()}</div></div>`;
+                console.log('Chat history cleared.');
+            }
+        }
+
+        // Save chat history
+        function saveChatHistory() {
+            localStorage.setItem('chatHistory', chatBody.innerHTML);
+            localStorage.setItem('questionIndex', questionIndex);
+        }
+
+        // Load chat history
+        function loadChatHistory() {
+            const history = localStorage.getItem('chatHistory');
+            const savedIndex = localStorage.getItem('questionIndex');
+            if (history) {
+                chatBody.innerHTML = history;
+                questionIndex = savedIndex ? parseInt(savedIndex) : 0;
+            } else {
+                chatBody.innerHTML = `<div class="message bot-message">Welcome, ${userName}, to Mindconnect, a safe space for men to share and heal. You are not alone—statistics show that 1 in 7 men experience gender-based violence, and many face challenges in silence. For immediate support in South Africa, call 0800 428 428 or SMS *120*7867#. Would you like to share how your experience has affected you?<div class="timestamp">${formatTimestamp()}</div></div>`;
+            }
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // Toggle theme
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            themeToggle.innerHTML = `<i class="fas ${isDark ? 'fa-sun' : 'fa-moon'}"></i>`;
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Clear chat on exit
+        function clearChatOnExit() {
+            localStorage.removeItem('chatHistory');
+            localStorage.removeItem('questionIndex');
+            console.log('Chat history cleared on navigation.');
+        }
+
+        // Event listeners
+        backButton.addEventListener('click', () => {
+            clearChatOnExit();
+            window.location.href = 'index.html';
+        });
+
+        window.addEventListener('beforeunload', (event) => {
+            if (window.location.pathname.includes('chatbot.html')) {
+                clearChatOnExit();
+            }
+        });
+
+        sendButton.addEventListener('click', handleSend);
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSend();
+        });
+        userInput.addEventListener('input', () => userInput.setCustomValidity(''));
+        clearButton.addEventListener('click', clearChat);
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Toggle crisis menu
+        crisisButton.addEventListener('click', () => {
+            crisisMenu.classList.toggle('active');
+        });
+        document.addEventListener('click', (e) => {
+            if (!crisisDropdown.contains(e.target)) {
+                crisisMenu.classList.remove('active');
+            }
+        });
+
+        // Initialize theme and chat
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i> Light Mode';
+        }
+        loadChatHistory();
+        userInput.focus();
+    </script>
+</body>
+
+</html>
