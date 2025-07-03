@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mindconnect - Empowering Men's Mental Health</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -383,53 +383,249 @@
         @media (max-width: 768px) {
             .nav {
                 flex-direction: column;
-                gap: 15px;
-                padding: clamp(15px, 3vw, 20px);
+                gap: 10px;
+                padding: clamp(10px, 2vw, 15px);
+            }
+            .nav-logo {
+                justify-content: center;
+            }
+            .nav-logo img {
+                height: 35px;
+            }
+            .nav-logo span {
+                font-size: clamp(1.6rem, 4vw, 1.8rem);
             }
             .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+            }
+            .nav-links a, .nav-links button {
+                width: 100%;
+                max-width: 200px;
+                text-align: center;
+                padding: clamp(10px, 2vw, 12px);
+                font-size: clamp(0.95rem, 2vw, 1rem);
+                min-height: 44px; /* WCAG touch target */
             }
             .hero {
-                padding: clamp(40px, 8vw, 60px) clamp(15px, 3vw, 20px);
+                padding: clamp(30px, 8vw, 50px) clamp(10px, 3vw, 15px);
+                border-radius: 12px;
             }
             h1 {
-                font-size: clamp(2.5rem, 5vw, 3rem);
+                font-size: clamp(2rem, 5vw, 2.5rem);
             }
             h2 {
-                font-size: clamp(1.5rem, 3vw, 1.8rem);
+                font-size: clamp(1.4rem, 3.5vw, 1.6rem);
+            }
+            .tagline {
+                font-size: clamp(1rem, 2.5vw, 1.2rem);
+                margin-bottom: 15px;
+            }
+            .hero-cta {
+                padding: clamp(10px, 2vw, 12px) clamp(20px, 4vw, 30px);
+                font-size: clamp(0.95rem, 2vw, 1rem);
+                min-height: 44px;
             }
             .card {
-                padding: clamp(20px, 4vw, 25px);
+                padding: clamp(15px, 4vw, 20px);
+                border-radius: 12px;
+                max-width: 100%;
+            }
+            .card h3 {
+                font-size: clamp(1.5rem, 3.5vw, 1.7rem);
+            }
+            .card p, .card ul {
+                font-size: clamp(0.95rem, 2vw, 1rem);
+                line-height: 1.6;
             }
             .form-card, .contact-card {
                 flex-direction: column;
+                padding: clamp(15px, 4vw, 20px);
+                gap: 15px;
             }
             .form-image {
                 max-width: 100%;
+                width: clamp(150px, 50vw, 200px);
+                border-radius: 8px;
+            }
+            .form-content, .contact-content {
+                min-width: 100%;
+                padding: 0 clamp(10px, 2vw, 15px);
+            }
+            .form-group, .contact-group {
+                margin: 15px 0;
+                gap: 10px;
+            }
+            #userName {
+                width: 100%;
+                max-width: none;
+                padding: clamp(12px, 2.5vw, 14px);
+                font-size: clamp(0.95rem, 2vw, 1rem);
+                min-height: 44px;
+            }
+            .start-button, .contact-button {
+                width: 100%;
+                max-width: none;
+                padding: clamp(12px, 2.5vw, 14px) clamp(20px, 4vw, 30px);
+                font-size: clamp(0.95rem, 2vw, 1rem);
+                min-height: 44px;
             }
             .contact-buttons {
                 flex-direction: column;
-                gap: 15px;
+                gap: 10px;
+                width: 100%;
+            }
+            .footer {
+                padding: clamp(20px, 5vw, 30px);
             }
             .footer-content {
                 flex-direction: column;
-                gap: 20px;
+                gap: 15px;
+            }
+            .footer-column {
+                min-width: 100%;
+            }
+            .footer-column h4 {
+                font-size: clamp(1.1rem, 2vw, 1.2rem);
+            }
+            .footer a {
+                font-size: clamp(0.85rem, 2vw, 0.95rem);
+            }
+            .social-links a {
+                margin: 0 10px;
+                font-size: clamp(1.5rem, 3vw, 1.6rem);
+                min-width: 44px;
+                display: inline-block;
             }
         }
         @media (max-width: 480px) {
             .container {
-                padding: clamp(15px, 3vw, 20px);
-            }
-            #userName {
-                max-width: 100%;
+                padding: clamp(10px, 2.5vw, 15px);
             }
             .nav-logo img {
                 height: 30px;
             }
             .nav-logo span {
-                font-size: clamp(1.5rem, 3vw, 1.8rem);
+                font-size: clamp(1.4rem, 3.5vw, 1.6rem);
+            }
+            .nav-links a, .nav-links button {
+                padding: clamp(8px, 2vw, 10px);
+                font-size: clamp(0.9rem, 2vw, 0.95rem);
+                min-height: 44px;
+            }
+            .hero {
+                padding: clamp(20px, 6vw, 30px) clamp(8px, 2vw, 12px);
+            }
+            h1 {
+                font-size: clamp(1.8rem, 4.5vw, 2rem);
+            }
+            h2 {
+                font-size: clamp(1.2rem, 3vw, 1.4rem);
+            }
+            .tagline {
+                font-size: clamp(0.9rem, 2vw, 1rem);
+                margin-bottom: 10px;
+            }
+            .hero-cta {
+                padding: clamp(8px, 2vw, 10px) clamp(15px, 3vw, 20px);
+                font-size: clamp(0.9rem, 2vw, 0.95rem);
+            }
+            .card {
+                padding: clamp(12px, 3vw, 15px);
+            }
+            .card h3 {
+                font-size: clamp(1.3rem, 3vw, 1.5rem);
+            }
+            .card p, .card ul {
+                font-size: clamp(0.9rem, 1.8vw, 0.95rem);
+            }
+            .form-image {
+                width: clamp(120px, 45vw, 160px);
+            }
+            #userName {
+                padding: clamp(10px, 2vw, 12px);
+                font-size: clamp(0.9rem, 1.8vw, 0.95rem);
+            }
+            .start-button, .contact-button {
+                padding: clamp(10px, 2vw, 12px) clamp(15px, 3vw, 20px);
+                font-size: clamp(0.9rem, 1.8vw, 0.95rem);
+            }
+            .error {
+                font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+            }
+            .footer {
+                padding: clamp(15px, 4vw, 20px);
+            }
+            .footer-column h4 {
+                font-size: clamp(1rem, 1.8vw, 1.1rem);
+            }
+            .footer a {
+                font-size: clamp(0.8rem, 1.8vw, 0.9rem);
+            }
+            .social-links a {
+                font-size: clamp(1.4rem, 2.8vw, 1.5rem);
+            }
+        }
+        @media (max-width: 360px) {
+            .container {
+                padding: clamp(8px, 2vw, 12px);
+            }
+            .nav-logo span {
+                font-size: clamp(1.2rem, 3vw, 1.4rem);
+            }
+            .nav-links a, .nav-links button {
+                font-size: clamp(0.85rem, 1.8vw, 0.9rem);
+                padding: clamp(6px, 1.5vw, 8px);
+            }
+            .hero {
+                padding: clamp(15px, 5vw, 20px) clamp(6px, 1.5vw, 8px);
+            }
+            h1 {
+                font-size: clamp(1.6rem, 4vw, 1.8rem);
+            }
+            h2 {
+                font-size: clamp(1.1rem, 2.8vw, 1.2rem);
+            }
+            .tagline {
+                font-size: clamp(0.85rem, 1.8vw, 0.9rem);
+            }
+            .hero-cta, .start-button, .contact-button {
+                padding: clamp(6px, 1.5vw, 8px) clamp(10px, 2.5vw, 15px);
+                font-size: clamp(0.85rem, 1.8vw, 0.9rem);
+                min-height: 40px;
+            }
+            .card {
+                padding: clamp(10px, 2.5vw, 12px);
+            }
+            .card h3 {
+                font-size: clamp(1.2rem, 2.8vw, 1.3rem);
+            }
+            .card p, .card ul {
+                font-size: clamp(0.85rem, 1.6vw, 0.9rem);
+            }
+            .form-image {
+                width: clamp(100px, 40vw, 120px);
+            }
+            #userName {
+                padding: clamp(8px, 1.8vw, 10px);
+                font-size: clamp(0.85rem, 1.6vw, 0.9rem);
+            }
+            .error {
+                font-size: clamp(0.75rem, 1.6vw, 0.85rem);
+            }
+            .footer {
+                padding: clamp(12px, 3vw, 15px);
+            }
+            .footer-column h4 {
+                font-size: clamp(0.95rem, 1.6vw, 1rem);
+            }
+            .footer a {
+                font-size: clamp(0.75rem, 1.6vw, 0.85rem);
+            }
+            .social-links a {
+                font-size: clamp(1.3rem, 2.5vw, 1.4rem);
+                margin: 0 8px;
             }
         }
         @media (min-width: 1200px) {
