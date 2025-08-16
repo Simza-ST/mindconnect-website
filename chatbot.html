@@ -862,8 +862,8 @@
         // Clear chat with confirmation
         function clearChat() {
             if (confirm('Are you sure you want to clear the chat history? This action cannot be undone.')) {
-                localStorage.removeItem('chatHistory');
-                localStorage.removeItem('questionIndex');
+                sessionStorage.removeItem('chatHistory');
+                sessionStorage.removeItem('questionIndex');
                 questionIndex = 0;
                 chatBody.innerHTML = `<div class="message bot-message">Welcome, ${userName}, to Mindconnect, a safe space for men to share and heal. You are not alone—statistics show that 1 in 7 men experience gender-based violence, and many face challenges in silence. For immediate support in South Africa, call 0800 428 428 or SMS *120*7867#. Would you like to share how your experience has affected you?<div class="timestamp">${formatTimestamp()}</div></div>`;
                 console.log('Chat history cleared.');
@@ -872,14 +872,14 @@
 
         // Save chat history
         function saveChatHistory() {
-            localStorage.setItem('chatHistory', chatBody.innerHTML);
-            localStorage.setItem('questionIndex', questionIndex);
+            sessionStorage.setItem('chatHistory', chatBody.innerHTML);
+            sessionStorage.setItem('questionIndex', questionIndex);
         }
 
         // Load chat history
         function loadChatHistory() {
-            const history = localStorage.getItem('chatHistory');
-            const savedIndex = localStorage.getItem('questionIndex');
+            const history = sessionStorage.getItem('chatHistory');
+            const savedIndex = sessionStorage.getItem('questionIndex');
             if (history) {
                 chatBody.innerHTML = history;
                 questionIndex = savedIndex ? parseInt(savedIndex) : 0;
@@ -894,13 +894,13 @@
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
             themeToggle.innerHTML = `<i class="fas ${isDark ? 'fa-sun' : 'fa-moon'}"></i>`;
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            sessionStorage.setItem('theme', isDark ? 'dark' : 'light');
         }
 
         // Clear chat on exit
         function clearChatOnExit() {
-            localStorage.removeItem('chatHistory');
-            localStorage.removeItem('questionIndex');
+            sessionStorage.removeItem('chatHistory');
+            sessionStorage.removeItem('questionIndex');
             console.log('Chat history cleared on navigation.');
         }
 
@@ -935,7 +935,7 @@
         });
 
         // Initialize theme and chat
-        if (localStorage.getItem('theme') === 'dark') {
+        if (sessionStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark-mode');
             themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
         }

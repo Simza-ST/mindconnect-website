@@ -807,7 +807,7 @@
             document.body.classList.toggle('dark-mode');
             const isDark = document.body.classList.contains('dark-mode');
             themeToggle.innerHTML = `<i class="fas ${isDark ? 'fa-sun' : 'fa-moon'}"></i>`;
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            sessionStorage.setItem('theme', isDark ? 'dark' : 'light');
         }
 
         // Track contact button clicks
@@ -836,7 +836,7 @@
         themeToggle.addEventListener('click', toggleTheme);
 
         // Load saved theme
-        if (localStorage.getItem('theme') === 'dark') {
+        if (sessionStorage.getItem('theme') === 'dark') {
             document.body.classList.add('dark-mode');
             themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
         }
